@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>svg转为canvas | 前端技术博客</title>
+    <meta name="description" content="Just playing around">
+    <link rel="stylesheet" href="/assets/style.css">
+    
+    <link rel="preload" href="/assets/css/0.styles.027ca5ff.css" as="style"><link rel="preload" href="/assets/js/app.6abff36e.js" as="script"><link rel="preload" href="/assets/js/2.9e1f4d86.js" as="script"><link rel="preload" href="/assets/js/30.759189fe.js" as="script"><link rel="prefetch" href="/assets/js/10.3f5a2a9c.js"><link rel="prefetch" href="/assets/js/11.5fba400c.js"><link rel="prefetch" href="/assets/js/12.ebe24025.js"><link rel="prefetch" href="/assets/js/13.f9b689b5.js"><link rel="prefetch" href="/assets/js/14.b81aee6e.js"><link rel="prefetch" href="/assets/js/15.e560b397.js"><link rel="prefetch" href="/assets/js/16.a60bbef0.js"><link rel="prefetch" href="/assets/js/17.5db01d86.js"><link rel="prefetch" href="/assets/js/18.a285774c.js"><link rel="prefetch" href="/assets/js/19.eb530e87.js"><link rel="prefetch" href="/assets/js/20.030e60b7.js"><link rel="prefetch" href="/assets/js/21.99273929.js"><link rel="prefetch" href="/assets/js/22.c69829ac.js"><link rel="prefetch" href="/assets/js/23.72782be0.js"><link rel="prefetch" href="/assets/js/24.702442c7.js"><link rel="prefetch" href="/assets/js/25.cd2729cc.js"><link rel="prefetch" href="/assets/js/26.01d1fd9a.js"><link rel="prefetch" href="/assets/js/27.ec1a4a11.js"><link rel="prefetch" href="/assets/js/28.2e329ecc.js"><link rel="prefetch" href="/assets/js/29.135b8851.js"><link rel="prefetch" href="/assets/js/3.517b7a5e.js"><link rel="prefetch" href="/assets/js/31.a32cd3fa.js"><link rel="prefetch" href="/assets/js/32.f2e14bc1.js"><link rel="prefetch" href="/assets/js/33.8ace0da5.js"><link rel="prefetch" href="/assets/js/34.c3e03c4d.js"><link rel="prefetch" href="/assets/js/35.01ccd61b.js"><link rel="prefetch" href="/assets/js/4.76d7033e.js"><link rel="prefetch" href="/assets/js/5.68b426ba.js"><link rel="prefetch" href="/assets/js/6.c9f0e117.js"><link rel="prefetch" href="/assets/js/7.6a282dbd.js"><link rel="prefetch" href="/assets/js/8.b098098c.js"><link rel="prefetch" href="/assets/js/9.1606459c.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.027ca5ff.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/assets/img/logo.png" alt="前端技术博客" class="logo"> <span class="site-name can-hide">前端技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/start/" class="nav-link">博客</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/start/" class="nav-link">博客</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>写在前面</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/start/" class="sidebar-link">写在最前面</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>2019年10月整理</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>2019年11月整理</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>2019年12月整理</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>2020年06月整理</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/202006/Blob对象探秘.html" class="sidebar-link">Blob对象探秘</a></li><li><a href="/202006/svg转为canvas.html" class="active sidebar-link">svg转为canvas</a></li><li><a href="/202006/简单封装环形排版 vue 组件.html" class="sidebar-link">简单封装环形排版 vue 组件</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h3 id="svg转为canvas"><a href="#svg转为canvas" class="header-anchor">#</a> svg转为canvas</h3> <p>先上案例代码：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;svg转为canvas&lt;/title&gt;
+    &lt;style&gt;
+        .box{
+            border:1px solid red;
+            width: 300px;
+            height: 300px;
+            float: left;
+            margin: 50px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;box&quot;&gt;
+        &lt;svg width=&quot;100%&quot; height=&quot;100%&quot; id=&quot;svg&quot;&gt;
+           
+              &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;50&quot; height=&quot;50&quot; fill=&quot;#feac5e&quot;&gt;
+                   
+             &lt;/rect&gt;
+        &lt;/svg&gt;
+    &lt;/div&gt;
+
+&lt;div class=&quot;box&quot;&gt;
+    &lt;canvas id=&quot;canvas&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;
+
+    &lt;/canvas&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+&lt;script&gt;
+    
+    var svgStr = new XMLSerializer().serializeToString(document.querySelector('#svg'))
+
+    var img = new Image();
+
+    var svg = new Blob([svgStr], {type: &quot;image/svg+xml;charset=utf-8&quot;});
+    //console.log(svg)  
+
+  
+    img.src = self.URL.createObjectURL(svg)  //self == window
+
+    img.onload = function(){
+        var canvas = document.querySelector('#canvas')
+        var ctx = canvas.getContext('2d')
+        ctx.drawImage(img,0,0)
+    }
+
+&lt;/script&gt;
+
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br></div></div><p>说明：</p> <p>步骤1：svg 本身是一段XMl标记，通过XMLSerializer().serializeToString()  获取源码</p> <p>步骤2：新建一个Image对象，将svg指定到它的src属性，之前需要通过Blob和URL映射一个临时的虚拟url</p> <p>步骤3：等待加载完成onload,在画布canvas绘制Image</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/202006/Blob对象探秘.html" class="prev">Blob对象探秘</a></span> <span class="next"><a href="/202006/简单封装环形排版 vue 组件.html">简单封装环形排版 vue 组件</a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.6abff36e.js" defer></script><script src="/assets/js/2.9e1f4d86.js" defer></script><script src="/assets/js/30.759189fe.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Blob对象探秘 | 前端技术博客</title>
+    <meta name="description" content="Just playing around">
+    <link rel="stylesheet" href="/assets/style.css">
+    
+    <link rel="preload" href="/assets/css/0.styles.027ca5ff.css" as="style"><link rel="preload" href="/assets/js/app.6abff36e.js" as="script"><link rel="preload" href="/assets/js/2.9e1f4d86.js" as="script"><link rel="preload" href="/assets/js/29.135b8851.js" as="script"><link rel="prefetch" href="/assets/js/10.3f5a2a9c.js"><link rel="prefetch" href="/assets/js/11.5fba400c.js"><link rel="prefetch" href="/assets/js/12.ebe24025.js"><link rel="prefetch" href="/assets/js/13.f9b689b5.js"><link rel="prefetch" href="/assets/js/14.b81aee6e.js"><link rel="prefetch" href="/assets/js/15.e560b397.js"><link rel="prefetch" href="/assets/js/16.a60bbef0.js"><link rel="prefetch" href="/assets/js/17.5db01d86.js"><link rel="prefetch" href="/assets/js/18.a285774c.js"><link rel="prefetch" href="/assets/js/19.eb530e87.js"><link rel="prefetch" href="/assets/js/20.030e60b7.js"><link rel="prefetch" href="/assets/js/21.99273929.js"><link rel="prefetch" href="/assets/js/22.c69829ac.js"><link rel="prefetch" href="/assets/js/23.72782be0.js"><link rel="prefetch" href="/assets/js/24.702442c7.js"><link rel="prefetch" href="/assets/js/25.cd2729cc.js"><link rel="prefetch" href="/assets/js/26.01d1fd9a.js"><link rel="prefetch" href="/assets/js/27.ec1a4a11.js"><link rel="prefetch" href="/assets/js/28.2e329ecc.js"><link rel="prefetch" href="/assets/js/3.517b7a5e.js"><link rel="prefetch" href="/assets/js/30.759189fe.js"><link rel="prefetch" href="/assets/js/31.a32cd3fa.js"><link rel="prefetch" href="/assets/js/32.f2e14bc1.js"><link rel="prefetch" href="/assets/js/33.8ace0da5.js"><link rel="prefetch" href="/assets/js/34.c3e03c4d.js"><link rel="prefetch" href="/assets/js/35.01ccd61b.js"><link rel="prefetch" href="/assets/js/4.76d7033e.js"><link rel="prefetch" href="/assets/js/5.68b426ba.js"><link rel="prefetch" href="/assets/js/6.c9f0e117.js"><link rel="prefetch" href="/assets/js/7.6a282dbd.js"><link rel="prefetch" href="/assets/js/8.b098098c.js"><link rel="prefetch" href="/assets/js/9.1606459c.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.027ca5ff.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/assets/img/logo.png" alt="前端技术博客" class="logo"> <span class="site-name can-hide">前端技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/start/" class="nav-link">博客</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/start/" class="nav-link">博客</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>写在前面</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/start/" class="sidebar-link">写在最前面</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>2019年10月整理</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>2019年11月整理</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>2019年12月整理</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>2020年06月整理</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/202006/Blob对象探秘.html" class="active sidebar-link">Blob对象探秘</a></li><li><a href="/202006/svg转为canvas.html" class="sidebar-link">svg转为canvas</a></li><li><a href="/202006/简单封装环形排版 vue 组件.html" class="sidebar-link">简单封装环形排版 vue 组件</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h3 id="blob对象探秘"><a href="#blob对象探秘" class="header-anchor">#</a> Blob对象探秘</h3> <blockquote><p>Blob( Binary Large Object ) 二进制类型的大对象，通常是影像/声音或多媒体文件</p></blockquote> <p><strong>一、Blob是什么</strong></p> <p>为了更直观的感受 Blob 对象，我们先来使用 Blob 构造函数，创建一个 blob 对象，具体如下所示：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>var blob = new Blob(['我'],{type:'text/plain'})
+
+console.log(blob) // Blob {size: 3, type: &quot;text/plain&quot;}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>​	如你所见，blob包含两个属性 :size和type, 其中 <code>size</code> 属性用于表示数据的大小（以字节为单位），<code>type</code> 是 MIME 类型的字符串 。至于一个中文为什么是三个字节，其实不同操作系统下中文占的字节数是变化的，这里不用管他</p> <hr> <p><strong>二、Blob API 简介</strong></p> <ul><li><p>构造函数</p> <p><code>var aBlob = new Blob(blobParts, options);</code></p></li></ul> <p>相关参数说明如下：</p> <ul><li><p>blobParts: 是一个由ArrayBuffer , ArrayBufferView  , Blob ,DOMString等对象构成的数组.DOMString会被编码为UTF-8.</p></li> <li><p>options : 一个可选的对象，包含以下两个属性</p> <p>type --默认值为“ ” ，它代表放到blob中的数组内容的MIME类型</p> <p>endings -- 默认值为 “ transparent ” , 用于指定包含行结束符 \n 的字符串如何被写入, 代表会保持 blob 中保存的结束符不变 。还有一个可选值：“native” , 代表行结束符会被更改为适合宿主操作系统文件系统的换行符</p> <p><strong>tips :</strong>  MIME（Multipurpose Internet Mail Extensions）多用途互联网邮件扩展类型 ,是设定某种扩展名的文件用一种应用程序来打开的方式类型，当该扩展名文件被访问的时候，浏览器会自动使用指定应用程序来打开。多用于指定一些客户端自定义的文件名，以及一些媒体文件打开方式。</p> <p>常见的 MIME 类型有：超文本标记语言文本 .html text/html、PNG图像 .png image/png、普通文本 .txt text/plain 等。</p></li></ul> <p>示例一：字符串创建</p> <div class="language-javascript line-numbers-mode"><pre class="language-javascript"><code><span class="token keyword">var</span> blobParts <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;html&gt;&lt;h1&gt;hello world&lt;/h1&gt;&lt;/html&gt;&quot;</span><span class="token punctuation">]</span>
+<span class="token keyword">var</span> blob <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Blob</span><span class="token punctuation">(</span>blobParts<span class="token punctuation">,</span><span class="token punctuation">{</span>type<span class="token punctuation">:</span><span class="token string">'text/html'</span><span class="token punctuation">,</span>endings<span class="token punctuation">:</span><span class="token string">'transparent'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>示例二：从类型化数组和字符串创建</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>var hello = new Uint8Array([72, 101, 108, 108, 111]); //二机制格式 “hello”
+var blob = new Blob([hello, ' ' ,'world'],{ type:'text/plain' })
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><ul><li><p>属性</p> <p>前面我们已经知道Blob对象的两个属性：</p> <p>size( 只读 )  ：数据大小 ，字节为单位</p> <p>type(只读)   ：数据类型，默认为 “  ”</p></li> <li><p>方法</p> <p>slice([start[, end[, contentType]]])：返回一个新的 Blob 对象，包含了源 Blob 对象中指定范围内的数据</p> <p>stream(): 返回一个能读取blob内容的ReadableStream</p> <p>text() :    返回一个Promise对象且包含blob所有内容的utf-8格式的USVString</p> <p>arrayBuffer(): 返回一个Promise对象且包含blob所有内容的二进制格式的ArrayBuffer</p> <p>注意：<strong>blob对象是不可改变</strong>。不能直接在原对象中更改数据，但是可以对其进行分割 ，再创建新的对象。这种行为类似于字符串</p></li></ul> <hr> <p><strong>三、 使用场景</strong></p> <ul><li><ol><li>分片上传</li></ol> <p>File对象是特殊类型的Blob, 且可以用在任意的Blob类型的上下文中。所以针对大文件传输的场景 ，我们可以使用slice方法对文件进行切割，然后分片进行上传，具体示例如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>const file = new File([&quot;a&quot;.repeat(1000000)], &quot;test.txt&quot;);
+
+const chunkSize = 50000;
+const url = &quot;https://httpbin.org/post&quot;;
+
+async function chunkedUpload() {
+  
+
+  for (let start = 0; start &lt; file.size; start += chunkSize) {
+      const chunk = file.slice(start, start + chunkSize + 1);
+      const fd = new FormData();
+      fd.append(&quot;data&quot;, chunk);
+
+      let result = await fetch(url, { method: &quot;post&quot;, body: fd }).then((res) =&gt;res.text());
+      console.log(result)  //发送20次请求 打印20个结果
+  }
+} 
+
+
+chunkedUpload()
+
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br></div></div></li> <li><ol start="2"><li>从互联网下载数据</li></ol> <p>我们可以使用以下方法从互联网上下载数据并将数据存储到 Blob 对象中，比如：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code> &lt;img id=&quot;img&quot; src=&quot;&quot; alt=&quot;&quot;&gt;
+
+//js
+
+const downloadBlob = (url, callback) =&gt; {
+ const xhr = new XMLHttpRequest()
+ xhr.open('GET', url)
+ xhr.responseType = 'blob'
+ xhr.onload = () =&gt; {
+    callback(xhr.response)
+ }
+ xhr.send(null)
+}
+
+
+
+let url = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4071496937,3701889394&amp;fm=26&amp;gp=0.jpg'  //网上找一个图片链接
+
+downloadBlob(url,function(data){
+    let objectURL = URL.createObjectURL(data);
+    var myImage =document.querySelector('#img')
+    console.log(objectURL)  //本地内存伪协议blob地址    		  
+    myImage.src = objectURL;
+    
+})
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br></div></div><p>你可能会有这样的疑惑 直接把url赋给img.src 岂不更省事，别急，往下看你就能感到包装一层的好处</p></li> <li><ol start="3"><li>用作URL</li></ol> <p>浏览器内部每次调用 <code>URL.createObjectURL(blob)</code> 都会生成一个映射一个唯一的源，形式为<code>blob:&lt;origin&gt;/&lt;uuid&gt;</code>，对应示例如下：</p> <p><code>blob:http://127.0.0.1:5500/5d873c7a-a5f9-4911-bedb-b2f604b13fc9</code></p> <p>这个url看似很不错，但实际上它也有副作用。会导致blob对象也常驻内存，浏览器无法释放它，只有等到文档卸载。如果应用的寿命很长，势必会造成内存的浪费，即使不再需要blob对象 它也会在内存中。</p> <p>针对这个问题 ，我们可以调用 <code>URL.revokeObjectURL(url)</code> 方法  从内部映射中删除引用，从而允许删除 Blob（如果没有其他引用），并释放内存。接下来，我们来看一下 Blob 文件下载的具体示例。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;button id=&quot;downloadBtn&quot;&gt;文件下载&lt;/button&gt;
+
+//js
+const download = (fileName, blob) =&gt; {
+  const link = document.createElement(&quot;a&quot;);
+  link.href = URL.createObjectURL(blob);
+  link.download = fileName;
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(link.href);
+};
+
+const downloadBtn = document.querySelector(&quot;#downloadBtn&quot;);
+downloadBtn.addEventListener(&quot;click&quot;, (event) =&gt; {
+  const fileName = &quot;blob.txt&quot;;
+  const myBlob = new Blob([&quot;一文彻底掌握 Blob Web API&quot;], { type: &quot;text/plain&quot; });
+  download(fileName, myBlob);
+});
+
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br></div></div></li> <li><ol start="4"><li>转换为Base64</li></ol></li></ul> <p>如果想把一个文件持久化存储为二进制数据（小文件推荐），以字符串的形式保存或传输，以下是将blob转换为base64编码并实现本地预览的示例：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;input type=&quot;file&quot; accept=&quot;image/*&quot; onchange=&quot;loadFile(event)&quot;&gt;
+&lt;img id=&quot;output&quot;/&gt;
+
+&lt;script&gt;
+  const loadFile = function(event) {
+    const reader = new FileReader();
+    let file = event.target.files[0]
+    reader.onload = function(){
+      const output = document.querySelector('output');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(file); //不明白这段代码为什么要放在onload下边，虽然都一样
+  };
+&lt;/script&gt;
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><p>服务端接收base64字符串，express为例代码如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>const app = require('express')();
+
+app.post('/upload', function(req, res){
+    let imgData = req.body.imgData; // 获取POST请求中的base64图片数据
+    let base64Data = imgData.replace(/^data:image\/\w+;base64,/, &quot;&quot;);
+    let dataBuffer = Buffer.from(base64Data, 'base64');
+    fs.writeFile(&quot;image.png&quot;, dataBuffer, function(err) {
+        if(err){
+          res.send(err);
+        }else{
+          res.send(&quot;图片上传成功！&quot;);
+        }
+    });
+});
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><p>FileReader对象除了支持将Blob/File转换为DataURL(readAsDataURL方法),还提供了转换其他格式的方法， readAsArrayBuffer()  和  <code>readAsText()</code></p> <ul><li><ol start="5"><li><p>图片压缩</p> <p>我们希望上传图片时 先对图片进行一定的压缩，然后再提交服务器，从而减少传输消耗。前端要实现图片压缩，可以利用Canvas提供的toDataURL（）方法，两个可选参数，代码如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// compress.js
+
+const MAX_WIDTH = 800; // 图片最大宽度
+
+function compress(base64, quality, mimeType) {  //图片压缩函数
+  let canvas = document.createElement(&quot;canvas&quot;);
+  let img = document.createElement(&quot;img&quot;);
+  img.crossOrigin = &quot;anonymous&quot;;
+  return new Promise((resolve, reject) =&gt; {
+    img.src = base64;
+    img.onload = () =&gt; {
+      let targetWidth, targetHeight;
+      if (img.width &gt; MAX_WIDTH) {
+        targetWidth = MAX_WIDTH;
+        targetHeight = (img.height * MAX_WIDTH) / img.width; //按比例减小
+      } else {
+        targetWidth = img.width;
+        targetHeight = img.height;
+      }
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+      let ctx = canvas.getContext(&quot;2d&quot;);
+      ctx.clearRect(0, 0, targetWidth, targetHeight); // 清除画布
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      let imageData = canvas.toDataURL(mimeType, quality / 100);
+      resolve(imageData);
+    };
+  });
+}
+
+//为进一步减少数据大小，再转换为Blob对象
+function dataUrlToBlob(base64, mimeType) {
+  let bytes = window.atob(base64.split(&quot;,&quot;)[1]);
+  let ab = new ArrayBuffer(bytes.length);
+  let ia = new Uint8Array(ab);
+  for (let i = 0; i &lt; bytes.length; i++) {
+    ia[i] = bytes.charCodeAt(i);
+  }
+  return new Blob([ab], { type: mimeType });
+}
+
+
+//将Blob对象封装在FormData对象中  提交到服务器
+function uploadFile(url, blob) {
+  let formData = new FormData();
+  let request = new XMLHttpRequest();
+  formData.append(&quot;image&quot;, blob);
+  request.open(&quot;POST&quot;, url, true);
+  request.send(formData);
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br></div></div><p>​	完整使用案例如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;本地图片压缩&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;input type=&quot;file&quot; accept=&quot;image/*&quot; onchange=&quot;loadFile(event)&quot; /&gt;
+    &lt;script src=&quot;./compress.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+      const loadFile = function (event) {
+        const reader = new FileReader();
+        
+        let file = event.target.files[0]
+        reader.readAsDataURL(file);
+        
+        reader.onload = async function () {
+          let compressedDataURL = await compress(
+            reader.result,
+            90,
+            &quot;image/jpeg&quot;
+          );
+          let compressedImageBlob = dataUrlToBlob(compressedDataURL);
+          uploadFile(&quot;https://httpbin.org/post&quot;, compressedImageBlob);
+        };
+       
+      };
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br></div></div></li></ol></li> <li><ol start="6"><li><p>生成PDF文档</p> <p>PDF（便携式文件格式，Portable Document Format）是由 Adobe Systems 在 1993 年用于文件交换所发展出的文件格式。在浏览器端，利用一些现成的开源库，比如 jsPDF，我们也可以方便地生成 PDF 文档。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;客户端生成 PDF 示例&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h3&gt;客户端生成 PDF 示例&lt;/h3&gt;
+    &lt;script src=&quot;https://unpkg.com/jspdf@latest/dist/jspdf.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+      (function generatePdf() {
+        const doc = new jsPDF();
+        doc.text(&quot;Hello semlinker!&quot;, 66, 88);
+        const blob = new Blob([doc.output()], { type: &quot;application/pdf&quot; });
+        blob.text().then((blobAsText) =&gt; {
+          console.log(blobAsText);
+        });
+      })();
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br></div></div></li></ol></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/201912/css 伪元素罕见用例.html" class="prev">css 伪元素罕见用例</a></span> <span class="next"><a href="/202006/svg转为canvas.html">svg转为canvas</a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.6abff36e.js" defer></script><script src="/assets/js/2.9e1f4d86.js" defer></script><script src="/assets/js/29.135b8851.js" defer></script>
+  </body>
+</html>

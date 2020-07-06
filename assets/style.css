@@ -1,0 +1,6 @@
+header.navbar{
+    background-color: bisque;
+} 
+header.navbar .links{
+    background: transparent;
+}
