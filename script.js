@@ -237,7 +237,7 @@ const playerConfig = {
     owner: 'makai285685774',    // 修改为你的GitHub用户名
     repo: 'makai285685774.github.io',     // 修改为你的仓库名
     path: 'music',                    // 音乐文件夹路径
-    token: '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'                         // 可选：GitHub个人访问令牌
+    token: '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'                         // 可选：GitHub个人访问令牌
 };
 
 // 页面加载完成后初始化播放器
