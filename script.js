@@ -1,12 +1,7 @@
 class GitHubMusicPlayer {
     constructor(config) {
         // 配置信息 - 需要修改为你的信息
-        this.config = {
-            owner: 'your-username',      // 你的GitHub用户名
-            repo: 'your-repo-name',      // 你的仓库名
-            path: 'music',               // 音乐文件夹路径
-            token: ''                    // 可选：GitHub token（提高API限制）
-        };
+        this.config = config;
 
         // 播放器状态
         this.state = {
