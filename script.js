@@ -58,7 +58,6 @@ class GitHubMusicPlayer {
             this.state.playlist = files.map(file => ({
                 name: this.formatFileName(file.name),
                 url: file.download_url,
-                size: file.size
             }));
 
             this.renderPlaylist();
@@ -81,7 +80,8 @@ class GitHubMusicPlayer {
     async fetchMusicFiles() {
         const { owner, repo, path, token } = this.config;
 
-        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+        // const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+        const url = "./music/file.json"
 
         const headers = {};
         if (token) {
@@ -91,16 +91,19 @@ class GitHubMusicPlayer {
         const response = await fetch(url, { headers });
 
         if (!response.ok) {
-            throw new Error(`GitHub API错误: ${response.status}`);
+            throw new Error(`API错误: ${response.status}`);
         }
 
         const files = await response.json();
 
         // 过滤音乐文件
-        return files.filter(file =>
-            file.type === 'file' &&
-            file.name.match(/\.(mp3|wav|ogg|flac|m4a|aac)$/i)
-        );
+        // return files.filter(file =>
+        //     file.type === 'file' &&
+        //     file.name.match(/\.(mp3|wav|ogg|flac|m4a|aac)$/i)
+        // );
+
+
+        return files
     }
 
     formatFileName(filename) {
@@ -116,7 +119,7 @@ class GitHubMusicPlayer {
             <div class="song-item" data-index="${index}">
                 <div class="song-number">${index + 1}</div>
                 <div class="song-name">${song.name}</div>
-                <div class="song-duration">${this.formatFileSize(song.size)}</div>
+  
             </div>
         `).join('');
 
@@ -150,8 +153,8 @@ class GitHubMusicPlayer {
         console.log(song)
 
         // 更新播放器
-        // this.elements.audioPlayer.src = song.url;
-        this.elements.audioPlayer.src = 'https://hifiti.com/getmusic.htm?key=hvRCe5lO5nrHP26VTgjyi4LX7Raj248BqYx8Tcx09XAhS2QF8gQooh0JKTafzs1PtpIpTxLIzLxWA8eElr0ymKjCcGVyA0k7H2X5H43AcDe3bXKaEkjIu5bpLPyWrrpfRbp44IRhB2SldZ4dkXnzBEwS8sVLTa_2FJ_2BnPBax7Tp5zhZk3mN3hR8uSxkjFR6XXh37BpZgPIV1vZ0zjI5nS3V7x4W7YV_2FLuqIcJWVVoysAfObc9gi2UEleResME86AsDoTgBVspimaMhAJ24'
+        this.elements.audioPlayer.src = song.url;
+
         this.elements.audioPlayer.play();
 
         // 更新界面
