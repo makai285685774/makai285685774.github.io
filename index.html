@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub音乐播放器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🎵 GitHub音乐播放器</h1>
+            <div class="controls">
+                <button id="shuffleBtn" class="btn">🔀 随机播放</button>
+                <button id="repeatBtn" class="btn">🔁 顺序播放</button>
+                <button id="refreshBtn" class="btn">🔄 刷新列表</button>
+            </div>
+        </header>
+
+        <div class="player-section">
+            <audio id="audioPlayer" controls></audio>
+            <div class="player-info">
+                <div id="nowPlaying">请选择歌曲开始播放</div>
+                <div id="playerProgress">-/-</div>
+            </div>
+        </div>
+
+        <div class="playlist-section">
+            <h3>播放列表 (<span id="songCount">0</span> 首)</h3>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索歌曲...">
+            </div>
+            <div id="playlist" class="playlist"></div>
+        </div>
+
+        <div class="loading" id="loading">
+            加载中...
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
