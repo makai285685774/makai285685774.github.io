@@ -150,7 +150,7 @@ class GitHubMusicPlayer {
         console.log(song)
 
         // 更新播放器
-        this.elements.audioPlayer.src = song.url;
+        this.elements.audioPlayer.src = `./music/${song.name}.mp3`;
         this.elements.audioPlayer.play();
 
         // 更新界面
