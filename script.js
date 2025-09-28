@@ -81,7 +81,7 @@ class GitHubMusicPlayer {
         const { owner, repo, path, token } = this.config;
 
         // const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-        const url = "./music/file.json"
+        const url = "/music/file.json"
 
         const headers = {};
         if (token) {
