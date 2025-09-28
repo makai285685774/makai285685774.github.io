@@ -80,11 +80,12 @@ class GitHubMusicPlayer {
 
     async fetchMusicFiles() {
         const { owner, repo, path, token } = this.config;
+        console.log(token)
         const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
         const headers = {};
         if (token) {
-            headers['Authorization'] = `token ${token}`;
+            headers['Authorization'] = `${token}`;
         }
 
         const response = await fetch(url, { headers });
