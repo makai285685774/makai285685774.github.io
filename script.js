@@ -150,7 +150,8 @@ class GitHubMusicPlayer {
         console.log(song)
 
         // 更新播放器
-        this.elements.audioPlayer.src = `./music/${song.name}.mp3`;
+        // this.elements.audioPlayer.src = song.url;
+        this.elements.audioPlayer.src = 'https://hifiti.com/getmusic.htm?key=hvRCe5lO5nrHP26VTgjyi4LX7Raj248BqYx8Tcx09XAhS2QF8gQooh0JKTafzs1PtpIpTxLIzLxWA8eElr0ymKjCcGVyA0k7H2X5H43AcDe3bXKaEkjIu5bpLPyWrrpfRbp44IRhB2SldZ4dkXnzBEwS8sVLTa_2FJ_2BnPBax7Tp5zhZk3mN3hR8uSxkjFR6XXh37BpZgPIV1vZ0zjI5nS3V7x4W7YV_2FLuqIcJWVVoysAfObc9gi2UEleResME86AsDoTgBVspimaMhAJ24'
         this.elements.audioPlayer.play();
 
         // 更新界面
