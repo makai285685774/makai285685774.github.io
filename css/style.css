@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn.active {
+    background: #e74c3c;
+}
+
+.player-section {
+    padding: 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+}
+
+#audioPlayer {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.player-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    color: #666;
+}
+
+#nowPlaying {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.playlist-section {
+    padding: 20px;
+}
+
+.search-box {
+    margin: 15px 0;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.playlist {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.song-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.song-item:hover {
+    background: #f8f9fa;
+}
+
+.song-item.playing {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+}
+
+.song-number {
+    width: 30px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.song-name {
+    flex: 1;
+    font-size: 0.95em;
+}
+
+.song-duration {
+    color: #666;
+    font-size: 0.85em;
+    margin-left: 10px;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.loading.show {
+    display: block;
+}
+
+.error {
+    color: #e74c3c;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 滚动条样式 */
+.playlist::-webkit-scrollbar {
+    width: 6px;
+}
+
+.playlist::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.playlist::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.playlist::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
