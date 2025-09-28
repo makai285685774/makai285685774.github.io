@@ -126,6 +126,7 @@ class GitHubMusicPlayer {
         this.elements.playlist.querySelectorAll('.song-item').forEach(item => {
             item.addEventListener('click', (e) => {
                 const index = parseInt(e.currentTarget.dataset.index);
+
                 this.playSong(index);
             });
         });
@@ -146,6 +147,7 @@ class GitHubMusicPlayer {
 
         this.state.currentIndex = index;
         const song = this.state.playlist[index];
+        console.log(song)
 
         // 更新播放器
         this.elements.audioPlayer.src = song.url;
