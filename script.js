@@ -239,8 +239,8 @@ class GitHubMusicPlayer {
 
 // 配置说明 - 使用前需要修改这些配置
 const playerConfig = {
-    owner: 'your-github-username',    // 修改为你的GitHub用户名
-    repo: 'your-repository-name',     // 修改为你的仓库名
+    owner: 'makai285685774',    // 修改为你的GitHub用户名
+    repo: 'makai285685774.github.io',     // 修改为你的仓库名
     path: 'music',                    // 音乐文件夹路径
     token: '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'                         // 可选：GitHub个人访问令牌
 };
