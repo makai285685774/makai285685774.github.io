@@ -1,14 +1,474 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>电子时钟与天气预报</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 时钟样式 */
+        .clock-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .clock {
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 50%;
+            border: 10px solid #333;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .clock-face {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform: translateY(-3px);
+            /* 调整指针位置 */
+        }
+
+        .hand {
+            width: 50%;
+            height: 6px;
+            background: #333;
+            position: absolute;
+            top: 50%;
+            transform-origin: 100%;
+            transform: rotate(90deg);
+            transition: all 0.05s;
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+        }
+
+        .hour-hand {
+            width: 35%;
+            left: 15%;
+            height: 8px;
+            background: #000;
+        }
+
+        .minute-hand {
+            width: 45%;
+            left: 5%;
+            height: 6px;
+        }
+
+        .second-hand {
+            width: 48%;
+            left: 2%;
+            height: 3px;
+            background: #ff0000;
+        }
+
+        .center-circle {
+            width: 20px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        /* 时钟数字 */
+        .clock-number {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .clock-number:nth-child(1) {
+            transform: rotate(30deg);
+        }
+
+        .clock-number:nth-child(2) {
+            transform: rotate(60deg);
+        }
+
+        .clock-number:nth-child(3) {
+            transform: rotate(90deg);
+        }
+
+        .clock-number:nth-child(4) {
+            transform: rotate(120deg);
+        }
+
+        .clock-number:nth-child(5) {
+            transform: rotate(150deg);
+        }
+
+        .clock-number:nth-child(6) {
+            transform: rotate(180deg);
+        }
+
+        .clock-number:nth-child(7) {
+            transform: rotate(210deg);
+        }
+
+        .clock-number:nth-child(8) {
+            transform: rotate(240deg);
+        }
+
+        .clock-number:nth-child(9) {
+            transform: rotate(270deg);
+        }
+
+        .clock-number:nth-child(10) {
+            transform: rotate(300deg);
+        }
+
+        .clock-number:nth-child(11) {
+            transform: rotate(330deg);
+        }
+
+        .clock-number:nth-child(12) {
+            transform: rotate(360deg);
+        }
+
+        .clock-number span {
+            display: inline-block;
+            transform: rotate(-30deg);
+        }
+
+        .clock-number:nth-child(2) span {
+            transform: rotate(-60deg);
+        }
+
+        .clock-number:nth-child(3) span {
+            transform: rotate(-90deg);
+        }
+
+        .clock-number:nth-child(4) span {
+            transform: rotate(-120deg);
+        }
+
+        .clock-number:nth-child(5) span {
+            transform: rotate(-150deg);
+        }
+
+        .clock-number:nth-child(6) span {
+            transform: rotate(-180deg);
+        }
+
+        .clock-number:nth-child(7) span {
+            transform: rotate(-210deg);
+        }
+
+        .clock-number:nth-child(8) span {
+            transform: rotate(-240deg);
+        }
+
+        .clock-number:nth-child(9) span {
+            transform: rotate(-270deg);
+        }
+
+        .clock-number:nth-child(10) span {
+            transform: rotate(-300deg);
+        }
+
+        .clock-number:nth-child(11) span {
+            transform: rotate(-330deg);
+        }
+
+        .clock-number:nth-child(12) span {
+            transform: rotate(-360deg);
+        }
+
+        /* 天气预报样式 */
+        .weather-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            min-width: 250px;
+        }
+
+        .weather-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #333;
+        }
+
+        .weather-day {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .weather-day:last-child {
+            border-bottom: none;
+        }
+
+        .day-name {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .weather-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .weather-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .weather-temp {
+            color: #666;
+        }
+
+        /* 电子时间显示 */
+        .digital-time {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 加载提示 */
+        .loading {
+            text-align: center;
+            color: #666;
+            padding: 10px;
+        }
+
+        /* 错误提示 */
+        .error {
+            text-align: center;
+            color: #ff0000;
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
-    正在建设中123...
+    <!-- 天气预报 -->
+    <div class="weather-container">
+        <div class="weather-title">天气预报</div>
+        <div id="weather-content">
+            <div class="loading">正在加载天气数据...</div>
+        </div>
+    </div>
+
+    <!-- 模拟时钟 -->
+    <div class="clock-container">
+        <div class="clock">
+            <div class="clock-face">
+                <!-- 时钟数字 -->
+                <div class="clock-number"><span>1</span></div>
+                <div class="clock-number"><span>2</span></div>
+                <div class="clock-number"><span>3</span></div>
+                <div class="clock-number"><span>4</span></div>
+                <div class="clock-number"><span>5</span></div>
+                <div class="clock-number"><span>6</span></div>
+                <div class="clock-number"><span>7</span></div>
+                <div class="clock-number"><span>8</span></div>
+                <div class="clock-number"><span>9</span></div>
+                <div class="clock-number"><span>10</span></div>
+                <div class="clock-number"><span>11</span></div>
+                <div class="clock-number"><span>12</span></div>
+
+                <!-- 时钟指针 -->
+                <div class="hand hour-hand"></div>
+                <div class="hand minute-hand"></div>
+                <div class="hand second-hand"></div>
+                <div class="center-circle"></div>
+            </div>
+        </div>
+        <!-- 电子时间显示 -->
+        <div class="digital-time" id="digital-time"></div>
+    </div>
+
+    <script>
+        // 时钟功能
+        const hourHand = document.querySelector('.hour-hand');
+        const minuteHand = document.querySelector('.minute-hand');
+        const secondHand = document.querySelector('.second-hand');
+        const digitalTime = document.getElementById('digital-time');
+
+        function setDate() {
+            const now = new Date();
+
+            // 计算指针旋转角度
+            const seconds = now.getSeconds();
+            const secondsDegrees = ((seconds / 60) * 360) + 90;
+            secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+            const minutes = now.getMinutes();
+            const minutesDegrees = ((minutes / 60) * 360) + ((seconds / 60) * 6) + 90;
+            minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
+
+            const hours = now.getHours();
+            const hoursDegrees = ((hours / 12) * 360) + ((minutes / 60) * 30) + 90;
+            hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+
+            // 更新电子时间显示
+            const formattedTime = now.toLocaleTimeString('zh-CN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            digitalTime.textContent = formattedTime;
+        }
+
+        // 每秒更新一次时钟
+        setInterval(setDate, 1000);
+        setDate(); // 初始化
+
+        // 天气预报功能 - 使用OpenWeatherMap API
+        // 请先在 https://openweathermap.org/api 注册获取免费API密钥
+        const API_KEY = 'YOUR_API_KEY'; // 替换为您的API密钥
+        const CITY = 'Beijing'; // 替换为您想查询的城市
+        const COUNTRY_CODE = 'CN'; // 国家代码
+
+        // 根据天气代码获取对应的天气图标
+        function getWeatherIcon(weatherCode) {
+            const iconMap = {
+                // 晴天
+                '01d': '☀️',
+                '01n': '🌙',
+                // 多云
+                '02d': '⛅',
+                '02n': '⛅',
+                '03d': '☁️',
+                '03n': '☁️',
+                '04d': '☁️',
+                '04n': '☁️',
+                // 雨天
+                '09d': '🌧️',
+                '09n': '🌧️',
+                '10d': '🌧️',
+                '10n': '🌧️',
+                // 雷雨
+                '11d': '⛈️',
+                '11n': '⛈️',
+                // 雪天
+                '13d': '❄️',
+                '13n': '❄️',
+                // 雾天
+                '50d': '🌫️',
+                '50n': '🌫️'
+            };
+            return iconMap[weatherCode] || '🌤️';
+        }
+
+        // 获取并显示天气数据
+        async function fetchWeather() {
+            const weatherContent = document.getElementById('weather-content');
+
+            try {
+                // 构建API URL
+                const url = `https://api.openweathermap.org/data/2.5/forecast?q=${CITY},${COUNTRY_CODE}&appid=${API_KEY}&units=metric&lang=zh_cn`;
+
+                // 发送API请求
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error('天气数据获取失败');
+                }
+
+                const data = await response.json();
+
+                // 处理天气数据，提取每天的天气预报（取每天12点的数据）
+                const dailyForecasts = [];
+                const today = new Date().toDateString();
+
+                data.list.forEach(item => {
+                    const forecastDate = new Date(item.dt * 1000);
+                    const dateString = forecastDate.toDateString();
+
+                    // 只添加每天12点的数据，最多添加4天（今天+未来3天）
+                    if (forecastDate.getHours() === 12 && dailyForecasts.length < 4) {
+                        // 检查是否已经添加了今天的数据
+                        if (dateString === today && dailyForecasts.length === 0) {
+                            dailyForecasts.push(item);
+                        } else if (dateString !== today) {
+                            dailyForecasts.push(item);
+                        }
+                    }
+                });
+
+                // 如果没有足够的数据（比如今天已经过了12点），则取最早的4个数据
+                if (dailyForecasts.length < 4) {
+                    dailyForecasts.length = 0;
+                    for (let i = 0; i < Math.min(4, data.list.length); i++) {
+                        dailyForecasts.push(data.list[i]);
+                    }
+                }
+
+                // 生成天气HTML
+                let weatherHTML = '';
+                const dayNames = ['今天', '明天', '后天', '大后天'];
+
+                dailyForecasts.forEach((forecast, index) => {
+                    const temp = Math.round(forecast.main.temp);
+                    const weatherIcon = getWeatherIcon(forecast.weather[0].icon);
+                    const dayName = dayNames[index];
+
+                    weatherHTML += `
+                        <div class="weather-day">
+                            <div class="day-name">${dayName}</div>
+                            <div class="weather-info">
+                                <div class="weather-icon">${weatherIcon}</div>
+                                <div class="weather-temp">${temp}°C</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // 更新天气内容
+                weatherContent.innerHTML = weatherHTML;
+
+            } catch (error) {
+                console.error('获取天气数据失败:', error);
+                weatherContent.innerHTML = `<div class="error">天气数据加载失败，请检查API密钥和网络连接</div>`;
+            }
+        }
+
+        // 页面加载时获取天气数据
+        window.addEventListener('load', fetchWeather);
+    </script>
 </body>
 
 </html>
